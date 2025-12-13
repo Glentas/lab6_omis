@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Plagiarism Checker{% endblock %}</title>
+    <style>
+        body { font-family: sans-serif; margin: 2rem; }
+        nav ul { list-style: none; padding: 0; }
+        nav li { display: inline; margin-right: 1rem; }
+    </style>
+</head>
+<body>
+    {% if current_user.is_authenticated %}
+        <nav>
+            <ul>
+                {% if current_user.role == 'student' %}
+                    <li><a href="{{ url_for('student.dashboard') }}">Главная</a></li>
+                    <li><a href="{{ url_for('student.upload') }}">Загрузить</a></li>
+                    <li><a href="{{ url_for('student.history') }}">История</a></li>
+                {% elif current_user.role == 'teacher' %}
+                    <li><a href="{{ url_for('teacher.dashboard') }}">Главная</a></li>
+                    <li><a href="{{ url_for('teacher.manage_students') }}">Студенты</a></li>
+                    <li><a href="{{ url_for('teacher.reports') }}">Отчёты</a></li>
+                {% elif current_user.role == 'admin' %}
+                    <li><a href="{{ url_for('admin.dashboard') }}">Админка</a></li>
+                {% endif %}
+                <li><a href="{{ url_for('auth.logout') }}">Выход</a></li>
+            </ul>
+        </nav>
+        <hr>
+    {% endif %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+            {% for msg in messages %}
+                <li style="color: red">{{ msg }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+</body>
+</html>

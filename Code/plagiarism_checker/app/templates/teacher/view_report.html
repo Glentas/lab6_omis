@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Отчёт (студент: {{ report.user.name }})</h2>
+<p><strong>Процент уникальности:</strong> {{ report.uniqueness_percentage }}%</p>
+<p><a href="{{ url_for('teacher.grade_work', report_id=report.id) }}">Выставить оценку</a></p>
+<a href="{{ url_for('teacher.student_detail', student_id=report.user_id) }}">Назад к студенту</a>
+{% endblock %}

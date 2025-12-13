@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Системные настройки</h2>
+<ul>
+  <li><a href="{{ url_for('admin.security_settings') }}">Параметры безопасности</a></li>
+  <li><a href="{{ url_for('admin.algorithm_settings') }}">Алгоритмы</a></li>
+  <li><a href="{{ url_for('admin.database_settings') }}">Параметры БД</a></li>
+</ul>
+<a href="{{ url_for('admin.dashboard') }}">Назад</a>
+{% endblock %}

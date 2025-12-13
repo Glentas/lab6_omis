@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Добавить пользователя</h2>
+<form method="post">
+  <p><input type="text" name="name" placeholder="Имя" required></p>
+  <p><input type="email" name="email" placeholder="Email" required></p>
+  <p>
+    <select name="role" required>
+      <option value="student">Студент</option>
+      <option value="teacher">Преподаватель</option>
+      <option value="admin">Администратор</option>
+    </select>
+  </p>
+  <p><input type="password" name="password" placeholder="Пароль" required></p>
+  <button type="submit">Добавить</button>
+</form>
+<a href="{{ url_for('admin.user_list') }}">Отмена</a>
+{% endblock %}

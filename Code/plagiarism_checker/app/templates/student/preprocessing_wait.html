@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Ожидание предобработки...</h2>
+<p>Идёт извлечение и нормализация текста.</p>
+<meta http-equiv="refresh" content="3;url={{ url_for('student.analysis_wait', doc_id=doc_id) }}">
+{% endblock %}
