@@ -4,6 +4,7 @@ from app.models import User, Report
 from app.teacher import bp
 from app.teacher.services import get_all_students, get_student_by_id, get_reports_for_student, get_all_reports
 
+
 @bp.route('/dashboard')
 @login_required
 def dashboard():
