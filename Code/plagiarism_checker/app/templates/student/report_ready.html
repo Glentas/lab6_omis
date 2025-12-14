@@ -1,8 +1,0 @@
-{% extends "base.html" %}
-{% block content %}
-<h2>Отчёт готов!</h2>
-<p>Анализ завершён. Вы можете просмотреть результаты.</p>
-<a href="{{ url_for('student.view_report', report_id=report_id) }}">Просмотреть отчёт</a> |
-<a href="{{ url_for('student.upload') }}">Загрузить новый документ</a> |
-<a href="{{ url_for('student.dashboard') }}">На главную</a>
-{% endblock %}
