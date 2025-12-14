@@ -1,4 +1,3 @@
-import os
 import time
 import random
 from app import db
@@ -6,8 +5,10 @@ from app.models import SourceDocument, ProcessedText, PlagiarismCheck, Report
 
 SUPPORTED_FORMATS = {'txt', 'pdf', 'docx'}
 
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in SUPPORTED_FORMATS
+
 
 def simulate_preprocessing(doc: SourceDocument):
     """Имитация предобработки: извлекаем текст (заглушка)"""
@@ -20,6 +21,7 @@ def simulate_preprocessing(doc: SourceDocument):
     db.session.add(processed)
     db.session.commit()
     return processed.id
+
 
 def simulate_analysis(processed_text_id: int, user_id: int):
     """Имитация анализа: генерация случайной уникальности"""
