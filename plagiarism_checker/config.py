@@ -1,6 +1,8 @@
 import os
 from datetime import timedelta
 
+UPLOAD_FOLDER = 'uploads'
+
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-secret-key')

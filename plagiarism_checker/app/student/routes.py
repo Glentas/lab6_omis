@@ -6,10 +6,7 @@ from app import db
 from app.models import SourceDocument, Report, ProcessedText, PlagiarismCheck
 from app.student import bp
 from app.student.services import allowed_file, simulate_preprocessing, simulate_analysis
-
-
-UPLOAD_FOLDER = 'uploads'
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+from config import UPLOAD_FOLDER
 
 
 @bp.route('/dashboard')

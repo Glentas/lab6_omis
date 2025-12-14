@@ -7,6 +7,7 @@ from app.teacher import bp
 from app.teacher.services import get_all_students, get_student_by_id, get_reports_for_student, get_all_reports
 from app.teacher.services import allowed_file, simulate_preprocessing, simulate_analysis
 from werkzeug.utils import secure_filename
+from config import UPLOAD_FOLDER
 
 
 @bp.route('/dashboard')
@@ -111,8 +112,7 @@ def upload_document():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            filepath = os.path.join('uploads', filename)
-            os.makedirs('uploads', exist_ok=True)
+            filepath = os.path.join(UPLOAD_FOLDER, filename)
             file.save(filepath)
 
             doc = SourceDocument(
