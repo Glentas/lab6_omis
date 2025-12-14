@@ -1,7 +1,8 @@
 import os
 from datetime import timedelta
 
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = os.path.abspath(".") + '_uploads'
+DB_FOLDER = os.path.abspath(".") + '_DB'
 
 
 class Config:

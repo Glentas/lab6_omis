@@ -1,4 +1,5 @@
 import os
+import shutil
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
 from app import db
@@ -7,7 +8,7 @@ from app.teacher import bp
 from app.teacher.services import get_all_students, get_student_by_id, get_reports_for_student, get_all_reports
 from app.teacher.services import allowed_file, simulate_preprocessing, simulate_analysis
 from werkzeug.utils import secure_filename
-from config import UPLOAD_FOLDER
+from config import UPLOAD_FOLDER, DB_FOLDER
 
 
 @bp.route('/dashboard')
@@ -113,6 +114,12 @@ def upload_document():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             filepath = os.path.join(UPLOAD_FOLDER, filename)
+            filepath_db = os.path.join(DB_FOLDER, filename)
+
+            if os.path.exists(filepath):
+                flash('Файл с таким именем уже существует!')
+                return redirect(request.url)
+
             file.save(filepath)
 
             doc = SourceDocument(
@@ -125,11 +132,14 @@ def upload_document():
             db.session.commit()
 
             processed_id = simulate_preprocessing(doc)
-            simulate_analysis(processed_id, current_user.id)
+            simulate_analysis(processed_id, current_user.id, filepath)
 
             flash('Документ обработан. Отчёт готов.')
             report = Report.query.filter_by(user_id=current_user.id).order_by(
                 Report.generated_date.desc()).first()
+
+            shutil.copy2(filepath, filepath_db)
+
             return redirect(url_for('teacher.view_report', report_id=report.id))
         else:
             flash('Неподдерживаемый формат файла')

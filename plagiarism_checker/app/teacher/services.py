@@ -1,8 +1,9 @@
-import time
-import random
 from app.models import User, Report, SourceDocument
 from app import db
 from app.models import ProcessedText, PlagiarismCheck
+from app.core.plagiarism_check import check_document_originality as cdo
+from config import DB_FOLDER
+
 
 SUPPORTED_FORMATS = {'txt', 'pdf', 'docx'}
 
@@ -12,7 +13,6 @@ def allowed_file(filename):
 
 
 def simulate_preprocessing(doc: SourceDocument):
-    time.sleep(1)
     processed = ProcessedText(
         doc_id=doc.id,
         extracted_text="Заглушенный текст (преподаватель)",
@@ -23,9 +23,8 @@ def simulate_preprocessing(doc: SourceDocument):
     return processed.id
 
 
-def simulate_analysis(processed_text_id: int, user_id: int):
-    time.sleep(2)
-    uniqueness = round(random.uniform(60.0, 99.9), 2)
+def simulate_analysis(processed_text_id: int, user_id: int, filepath):
+    uniqueness = cdo(filepath, DB_FOLDER)
     check = PlagiarismCheck(
         doc_id=processed_text_id,
         user_id=user_id,

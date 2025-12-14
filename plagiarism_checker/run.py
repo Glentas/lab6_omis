@@ -1,9 +1,10 @@
 import os
 from app import create_app
 from app.auth.utils import create_demo_users
-from config import UPLOAD_FOLDER
+from config import UPLOAD_FOLDER, DB_FOLDER
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(DB_FOLDER, exist_ok=True)
 app = create_app()
 
 if __name__ == '__main__':

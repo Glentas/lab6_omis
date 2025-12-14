@@ -2,3 +2,5 @@ plagiarism_checker/venv/
 __pycache__/
 plagiarism_checker/instance
 plagiarism_checker/uploads
+plagiarism_checker_DB/
+plagiarism_checker_uploads/
