@@ -1,14 +1,15 @@
-from app.models import User, Report, SourceDocument
-import os
 import time
 import random
+from app.models import User, Report, SourceDocument
 from app import db
-from app.models import SourceDocument, ProcessedText, PlagiarismCheck, Report
+from app.models import ProcessedText, PlagiarismCheck
 
 SUPPORTED_FORMATS = {'txt', 'pdf', 'docx'}
 
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in SUPPORTED_FORMATS
+
 
 def simulate_preprocessing(doc: SourceDocument):
     time.sleep(1)
@@ -20,6 +21,7 @@ def simulate_preprocessing(doc: SourceDocument):
     db.session.add(processed)
     db.session.commit()
     return processed.id
+
 
 def simulate_analysis(processed_text_id: int, user_id: int):
     time.sleep(2)
@@ -40,14 +42,19 @@ def simulate_analysis(processed_text_id: int, user_id: int):
     db.session.add(report)
     db.session.commit()
     return report.id
+
+
 def get_all_students():
     return User.query.filter_by(role='student').all()
+
 
 def get_student_by_id(student_id):
     return User.query.filter_by(id=student_id, role='student').first()
 
+
 def get_reports_for_student(student_id):
     return Report.query.filter_by(user_id=student_id).order_by(Report.generated_date.desc()).all()
+
 
 def get_all_reports():
     return Report.query.order_by(Report.generated_date.desc()).all()

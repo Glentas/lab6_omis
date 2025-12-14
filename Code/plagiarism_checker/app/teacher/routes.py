@@ -59,8 +59,8 @@ def view_student_reports(student_id):
     if not student:
         flash('Студент не найден')
         return redirect(url_for('teacher.student_list'))
-    reports = get_reports_for_student(student_id)
-    return render_template('teacher/view_student_reports.html', student=student, reports=reports)
+    reports2 = get_reports_for_student(student_id)
+    return render_template('teacher/view_student_reports.html', student=student, reports=reports2)
 
 
 @bp.route('/view_report/<int:report_id>')
@@ -89,7 +89,7 @@ def submit_grade(report_id):
     if current_user.role != 'teacher':
         flash('Доступ запрещён')
         return redirect(url_for('auth.login'))
-    # Заглушка: просто подтверждаем
+
     flash('Оценка выставлена (заглушка)')
     report = Report.query.get_or_404(report_id)
     return redirect(url_for('teacher.student_detail', student_id=report.user_id))
@@ -124,12 +124,10 @@ def upload_document():
             db.session.add(doc)
             db.session.commit()
 
-            # Синхронная обработка (MVP, без потоков!)
             processed_id = simulate_preprocessing(doc)
             simulate_analysis(processed_id, current_user.id)
 
             flash('Документ обработан. Отчёт готов.')
-            # Получаем последний отчёт
             report = Report.query.filter_by(user_id=current_user.id).order_by(
                 Report.generated_date.desc()).first()
             return redirect(url_for('teacher.view_report', report_id=report.id))
@@ -154,7 +152,6 @@ def filter_reports():
     if current_user.role != 'teacher':
         flash('Доступ запрещён')
         return redirect(url_for('auth.login'))
-    # Заглушка: фильтры не реализованы, просто показываем список
     flash('Фильтры не реализованы в MVP')
     return redirect(url_for('teacher.reports'))
 

@@ -1,0 +1,4 @@
+Enemy(x)={<ork,0.3>,<mag,0.53>,<warg,0.27>}
+Def(x)={<arch,0.75>,<kni,0.25>}
+NewEnemies(x)={<ork,0.82>,<mag,0.7>,<warg,0.11>}
+Enemy(x)~>Def(x)
