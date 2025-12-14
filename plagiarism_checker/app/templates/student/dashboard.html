@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Панель студента{% endblock %}
+{% block content %}
+<h2>Панель студента</h2>
+<ul>
+  <li><a href="{{ url_for('student.upload') }}">Загрузить новый документ</a></li>
+  <li><a href="{{ url_for('student.history') }}">История проверок</a></li>
+</ul>
+{% endblock %}

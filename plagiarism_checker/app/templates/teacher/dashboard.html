@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Панель преподавателя</h2>
+<ul>
+  <li><a href="{{ url_for('teacher.upload_document') }}">Загрузить документ на проверку</a></li>
+  <li><a href="{{ url_for('teacher.reports') }}">Просмотр отчётов</a></li>
+  <li><a href="{{ url_for('teacher.manage_students') }}">Управление студентами</a></li>
+  <li><a href="{{ url_for('teacher.statistics') }}">Статистика группы</a></li>
+</ul>
+{% endblock %}

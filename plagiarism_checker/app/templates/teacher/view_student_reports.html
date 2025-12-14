@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Работы студента: {{ student.name }}</h2>
+{% if reports %}
+  <ul>
+    {% for r in reports %}
+      <li>
+        Отчёт от {{ r.generated_date.strftime('%Y-%m-%d %H:%M') }},
+        уникальность: {{ r.uniqueness_percentage }}%
+        — <a href="{{ url_for('teacher.view_report', report_id=r.id) }}">Просмотр</a>
+        — <a href="{{ url_for('teacher.grade_work', report_id=r.id) }}">Оценить</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>Работы отсутствуют</p>
+{% endif %}
+<a href="{{ url_for('teacher.student_detail', student_id=student.id) }}">Назад</a>
+{% endblock %}

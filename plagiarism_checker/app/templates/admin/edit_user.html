@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Редактировать пользователя</h2>
+<form method="post">
+  <p><input type="text" name="name" value="{{ user.name }}" required></p>
+  <p><input type="email" name="email" value="{{ user.email }}" required></p>
+  <p>
+    <select name="role" required>
+      <option value="student" {% if user.role == 'student' %}selected{% endif %}>Студент</option>
+      <option value="teacher" {% if user.role == 'teacher' %}selected{% endif %}>Преподаватель</option>
+      <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Администратор</option>
+    </select>
+  </p>
+  <button type="submit">Сохранить</button>
+</form>
+<a href="{{ url_for('admin.user_list') }}">Отмена</a>
+{% endblock %}

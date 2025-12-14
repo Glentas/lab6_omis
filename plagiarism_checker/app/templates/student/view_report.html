@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Отчёт о проверке</h2>
+<p><strong>Процент уникальности:</strong> {{ report.uniqueness_percentage }}%</p>
+<p><a href="{{ url_for('student.export_report', report_id=report.id) }}">Экспорт в PDF (заглушка)</a></p>
+<a href="{{ url_for('student.upload') }}">Проверить новый документ</a> |
+<a href="{{ url_for('student.dashboard') }}">На главную</a>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Загрузить документ</h2>
+<form method="post" enctype="multipart/form-data">
+  <input type="file" name="file" accept=".txt,.pdf,.docx" required>
+  <button type="submit">Загрузить</button>
+</form>
+<a href="{{ url_for('student.dashboard') }}">Отмена</a>
+{% endblock %}
